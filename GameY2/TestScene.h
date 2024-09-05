@@ -6,10 +6,11 @@ class GameEngine::Entity;
 class TestScene : public GameEngine::Scene
 {
 public:
-	void onStart();
+	void onStart() override;
 	void onUpdate(double deltaTime) override;
 
 private:
-	GameEngine::Entity* m_test;
+	GameEngine::Entity* m_circle1;
+	GameEngine::Entity* m_circle2;
 	float m_accumulatedTime = 0;
 };

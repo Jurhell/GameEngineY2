@@ -2,6 +2,7 @@
 #include "Engine/Entity.h"
 #include "Graphics/ShapeComponent.h"
 #include "Engine/TransformComponent.h"
+#include "Physics/CircleColliderComponent.h"
 #include <chrono>
 #include <cmath>
 
@@ -12,26 +13,26 @@ using namespace std::chrono;
 
 void TestScene::onStart()
 {
-	Entity* m_test = new Entity();
-	m_test->getTransform()->setLocalScale({ 100, 100 });
-	m_test->getTransform()->setLocalPosition({ 400, 400 });
+	//Set up circle 1
+	m_circle1 = new GameEngine::Entity();
+	m_circle1->getTransform()->setLocalScale({ 40, 40 });
+	m_circle1->getTransform()->setLocalPosition({ 100, 100 });
+	m_circle1->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
+	m_circle1->addComponent(new GamePhysics::CircleColliderComponent(50));
+	addEntity(m_circle1);
 
-	ShapeComponent* testShape = new ShapeComponent();
-	testShape->setShapeType(ShapeType::CIRCLE);
-	testShape->setColor(0xFFFFFFFF);
-	m_test->addComponent(testShape);
-
-	addEntity(m_test);
+	//Set up circle 2
+	m_circle2 = new  GameEngine::Entity();
+	m_circle2->getTransform()->setLocalScale({ 40, 40 });
+	m_circle2->getTransform()->setLocalPosition({ 600, 100 });
+	m_circle2->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
+	m_circle2->addComponent(new GamePhysics::CircleColliderComponent(50));
+	addEntity(m_circle2);
 }
 
 void TestScene::onUpdate(double deltaTime)
 {
-	//float currentTime = duration_cast<seconds>(high_resolution_clock::now().time_since_epoch()).count();
-
-	//m_accumulatedTime += deltaTime;
-	//
-	//float circleRadius = 100;
-	//float speedScale = 0.5f;
-	//Vector2 newPosition = { sin(m_accumulatedTime * speedScale) * circleRadius + 400, cos(m_accumulatedTime * speedScale) * circleRadius + 400 };
-	//m_test->getTransform()->setLocalPosition(newPosition);
+	GameMath::Vector2 position = m_circle1->getTransform()->getLocalPosition();
+	GameMath::Vector2 deltaPosition = { 50, 0 };
+	m_circle1->getTransform()->setLocalPosition(position + deltaPosition * deltaTime);
 }
