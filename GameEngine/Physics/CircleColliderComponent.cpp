@@ -25,6 +25,11 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionCirc
 
 GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB(AABBColliderComponent* other)
 {
+    //GamePhysics::ColliderComponent::checkCollision(this);
+
+    GameMath::Vector2 colliderScale = getOwner()->getTransform()->getLocalScale();
+    if (colliderScale.x)
+
     return nullptr;
 }
 
