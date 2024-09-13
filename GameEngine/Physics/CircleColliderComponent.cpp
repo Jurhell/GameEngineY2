@@ -7,6 +7,7 @@
 
 GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionCircle(CircleColliderComponent* other)
 {
+    //Get direction to other collider
     GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;

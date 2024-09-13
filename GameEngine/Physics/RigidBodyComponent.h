@@ -21,6 +21,8 @@ namespace GamePhysics
 
 		void fixedUpdate(float fixedDeltaTime) override;
 
+		void resolveCollision(GamePhysics::Collision* collisionData);
+
 	private:
 		GameMath::Vector2 m_velocity;
 		float m_mass = 1;

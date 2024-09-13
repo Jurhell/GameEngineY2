@@ -1,6 +1,9 @@
 #include "RigidBodyComponent.h"
 #include "Engine/TransformComponent.h"
+#include "Physics/ColliderComponent.h"
 #include "Engine/Entity.h"
+
+using namespace GameMath;
 
 void GamePhysics::RigidBodyComponent::applyForce(GameMath::Vector2 force)
 {
@@ -9,15 +12,28 @@ void GamePhysics::RigidBodyComponent::applyForce(GameMath::Vector2 force)
 
 void GamePhysics::RigidBodyComponent::applyForceToEntity(RigidBodyComponent* rigidBody, GameMath::Vector2 force)
 {
-	applyForce(force);
-	rigidBody->applyForce(force * -1);
+	applyForce(force * -1);
+	rigidBody->applyForce(force);
 }
 
 void GamePhysics::RigidBodyComponent::fixedUpdate(float fixedDeltaTime)
 {
-	GameMath::Vector2 position = getOwner()->getTransform()->getLocalPosition();
+	Vector2 position = getOwner()->getTransform()->getLocalPosition();
 	getOwner()->getTransform()->setLocalPosition(position + m_velocity * fixedDeltaTime);
 
-	GameMath::Vector2 gravity = { 0, getGravity() };
+	Vector2 gravity = { 0, getGravity() };
 	applyForce(gravity * getMass());
+}
+
+void GamePhysics::RigidBodyComponent::resolveCollision(GamePhysics::Collision* collisionData)
+{
+	RigidBodyComponent* otherRigid = getOwner()->getComponent<RigidBodyComponent>();
+
+	Vector2 normal = collisionData->normal;
+
+	Vector2 numerator = 2 * (normal.dotProduct(getVelocity() - otherRigid->getVelocity(), normal));
+	float denominator = normal.dotProduct(normal, normal)* (1 / getMass() + 1 / otherRigid->getMass());
+
+	Vector2 impulse = numerator / denominator;
+	applyForceToEntity(this, impulse);
 }
