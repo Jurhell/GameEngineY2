@@ -21,24 +21,27 @@ void TestScene::onStart()
 	m_circle1->getTransform()->setLocalPosition({ 100, 100 });
 	m_circle1->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle1->addComponent(new GamePhysics::CircleColliderComponent(50));
-	//m_circle1->addComponent(new GamePhysics::RigidBodyComponent());
+	m_circle1->addComponent(new GamePhysics::RigidBodyComponent());
+	//m_circle1->getComponent<GamePhysics::RigidBodyComponent>()->setGravity(0);
 	addEntity(m_circle1);
 
 	//Set up circle 2
-	m_circle2 = new  GameEngine::Entity();
+	/*m_circle2 = new  GameEngine::Entity();
 	m_circle2->getTransform()->setLocalScale({ 40, 40 });
 	m_circle2->getTransform()->setLocalPosition({ 600, 100 });
 	m_circle2->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle2->addComponent(new GamePhysics::CircleColliderComponent(50));
 	m_circle2->addComponent(new GamePhysics::RigidBodyComponent());
-	//addEntity(m_circle2);
+	addEntity(m_circle2);*/
 
+	//Set up box
 	m_aabb = new GameEngine::Entity();
-	m_aabb->getTransform()->setLocalScale({ 40, 40 });
-	m_aabb->getTransform()->setLocalPosition({ 600, 100 });
+	m_aabb->getTransform()->setLocalScale({ 50, 50 });
+	m_aabb->getTransform()->setLocalPosition({ 145, 400 });
 	m_aabb->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::BOX);
-	m_aabb->addComponent(new GamePhysics::AABBColliderComponent(40, 40));
-	//m_aabb->addComponent(new GamePhysics::RigidBodyComponent());
+	m_aabb->addComponent(new GamePhysics::AABBColliderComponent(50, 50));
+	m_aabb->addComponent(new GamePhysics::RigidBodyComponent());
+	m_aabb->getComponent<GamePhysics::RigidBodyComponent>()->setGravity(0);
 	addEntity(m_aabb);
 
 	//Set up floor
@@ -46,12 +49,15 @@ void TestScene::onStart()
 	m_floor->getTransform()->setLocalScale({ 1000, 100 });
 	m_floor->getTransform()->setLocalPosition({ 400, 750 });
 	m_floor->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::BOX);
+	m_floor->addComponent(new GamePhysics::AABBColliderComponent(1000, 100));
+	//m_floor->addComponent(new GamePhysics::RigidBodyComponent());
+	//m_floor->getComponent<GamePhysics::RigidBodyComponent>()->setMass(0);
 	addEntity(m_floor);
 }
 
 void TestScene::onUpdate(double deltaTime)
 {
-	GameMath::Vector2 position = m_circle1->getTransform()->getLocalPosition();
-	GameMath::Vector2 deltaPosition = { 50, 0 };
-	m_circle1->getTransform()->setLocalPosition(position + deltaPosition * deltaTime);
+	//GameMath::Vector2 position = m_circle1->getTransform()->getLocalPosition();
+	//GameMath::Vector2 deltaPosition = { 50, 0 };
+	//m_circle1->getTransform()->setLocalPosition(position + deltaPosition * deltaTime);
 }

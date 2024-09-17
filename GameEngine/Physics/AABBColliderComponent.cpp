@@ -55,5 +55,5 @@ void GamePhysics::AABBColliderComponent::draw()
 {
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
 
-    RAYLIB_H::DrawRectangle(position.x, position.y, getWidth(), getHeight(), GetColor(getColor()));
+    RAYLIB_H::DrawRectangleLines(position.x, position.y, getWidth(), getHeight(), GetColor(getColor()));
 }
