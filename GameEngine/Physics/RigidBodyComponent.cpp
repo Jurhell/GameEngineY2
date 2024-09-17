@@ -27,13 +27,13 @@ void GamePhysics::RigidBodyComponent::fixedUpdate(float fixedDeltaTime)
 
 void GamePhysics::RigidBodyComponent::resolveCollision(GamePhysics::Collision* collisionData)
 {
-	RigidBodyComponent* otherRigid = collisionData->collider->getRigidBody();
-	
-	Vector2 normal = collisionData->normal;
+	//RigidBodyComponent* otherRigid = collisionData->collider->getRigidBody();
+	//
+	//Vector2 normal = collisionData->normal;
 
-	Vector2 numerator = 2 * (normal.dotProduct(getVelocity() - otherRigid->getVelocity(), normal));
-	float denominator = normal.dotProduct(normal, normal)* (1 / getMass() + 1 / otherRigid->getMass());
+	//Vector2 numerator = 2 * (normal.dotProduct(getVelocity() - otherRigid->getVelocity(), normal));
+	//float denominator = normal.dotProduct(normal, normal)* (1 / getMass() + 1 / otherRigid->getMass());
 
-	Vector2 impulse = numerator / denominator;
-	applyForceToEntity(this, impulse);
+	//Vector2 impulse = numerator / denominator;
+	//applyForceToEntity(this, impulse);
 }
