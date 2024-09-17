@@ -7,16 +7,18 @@
 
 GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle(CircleColliderComponent* other)
 {
+    //Get direction to other collider
     GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;
     float distance = direction.getMagnitude();
-
     float otherRadius = other->getRadius();
 
+    //Do nothing if there is no collision
     if (distance > otherRadius + m_radius)
         return nullptr;
 
+    //Circle collision Data
     GamePhysics::Collision* collisionData = new Collision();
     collisionData->collider = other;
     collisionData->normal = direction.getNormalized();
@@ -28,18 +30,25 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle
 
 GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(AABBColliderComponent* other)
 {
-    /*GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();
+    GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;
-    float distance = direction.getMagnitude();*/
 
     //AABB Colliding
-    GamePhysics::Collision* collisionData = new Collision();
-    collisionData->collider = other;
+    if (position.x < otherPosition.x + other->getWidth() && position.x + m_width > otherPosition.x &&
+        position.y < otherPosition.y + other->getHeight() && position.y + m_height > otherPosition.y)
+    {
+        //AABB Collision Data
+        GamePhysics::Collision* collisionData = new Collision();
+        collisionData->collider = other;
+        collisionData->normal = direction.getNormalized();
+        collisionData->contactPoint = position + direction.getNormalized() * getRadius();
+        collisionData->penetrationDistance = (other->getRadius() + getRadius());
 
-    //Collision Stuff Goes Here
-
-    return collisionData;
+        return collisionData;
+    }
+    else
+        return nullptr;
 }
 
 void GamePhysics::AABBColliderComponent::draw()

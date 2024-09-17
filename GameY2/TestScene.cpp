@@ -2,6 +2,7 @@
 #include "Engine/Entity.h"
 #include "Graphics/ShapeComponent.h"
 #include "Engine/TransformComponent.h"
+#include "Physics/AABBColliderComponent.h"
 #include "Physics/CircleColliderComponent.h"
 #include "Physics/RigidBodyComponent.h"
 #include <chrono>
@@ -20,7 +21,7 @@ void TestScene::onStart()
 	m_circle1->getTransform()->setLocalPosition({ 100, 100 });
 	m_circle1->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle1->addComponent(new GamePhysics::CircleColliderComponent(50));
-	m_circle1->addComponent(new GamePhysics::RigidBodyComponent());
+	//m_circle1->addComponent(new GamePhysics::RigidBodyComponent());
 	addEntity(m_circle1);
 
 	//Set up circle 2
@@ -30,7 +31,15 @@ void TestScene::onStart()
 	m_circle2->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle2->addComponent(new GamePhysics::CircleColliderComponent(50));
 	m_circle2->addComponent(new GamePhysics::RigidBodyComponent());
-	addEntity(m_circle2);
+	//addEntity(m_circle2);
+
+	m_aabb = new GameEngine::Entity();
+	m_aabb->getTransform()->setLocalScale({ 40, 40 });
+	m_aabb->getTransform()->setLocalPosition({ 600, 100 });
+	m_aabb->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::BOX);
+	m_aabb->addComponent(new GamePhysics::AABBColliderComponent(40, 40));
+	//m_aabb->addComponent(new GamePhysics::RigidBodyComponent());
+	addEntity(m_aabb);
 
 	//Set up floor
 	m_floor = new GameEngine::Entity();
