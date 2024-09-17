@@ -34,7 +34,7 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;
 
-    //AABB Colliding
+    //AABB Collision Check
     if (position.x < otherPosition.x + other->getWidth() && position.x + m_width > otherPosition.x &&
         position.y < otherPosition.y + other->getHeight() && position.y + m_height > otherPosition.y)
     {
@@ -55,5 +55,5 @@ void GamePhysics::AABBColliderComponent::draw()
 {
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
 
-    RAYLIB_H::DrawRectangleLines(position.x, position.y, getWidth(), getHeight(), GetColor(getColor()));
+    RAYLIB_H::DrawRectangleLines(position.x - m_width / 2, position.y - m_height / 2, getWidth(), getHeight(), GetColor(getColor()));
 }

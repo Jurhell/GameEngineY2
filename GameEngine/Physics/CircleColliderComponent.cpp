@@ -33,7 +33,7 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;
 
-    //AABB Colliding
+    //AABB Collision Check
     if (position.x < otherPosition.x + other->getWidth() && position.x + getRadius() > otherPosition.x &&
         position.y < otherPosition.y + other->getHeight() && position.y + getRadius() > otherPosition.y)
     {
