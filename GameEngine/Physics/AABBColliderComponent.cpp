@@ -18,14 +18,18 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle
     if (distance > otherRadius + m_radius)
         return nullptr;
 
-    //Circle collision Data
-    GamePhysics::Collision* collisionData = new Collision();
-    collisionData->collider = other;
-    collisionData->normal = direction.getNormalized();
-    collisionData->contactPoint = position + direction.getNormalized() * getRadius();
-    collisionData->penetrationDistance = (otherRadius + m_radius) - distance;
+    if (position.x < otherPosition.x + getRadius() && position.x + m_width > otherPosition.x &&
+        position.y < otherPosition.y + other->getRadius() && position.y + m_height > otherPosition.y)
+    {
+        //Circle collision Data
+        GamePhysics::Collision* collisionData = new Collision();
+        collisionData->collider = other;
+        collisionData->normal = direction.getNormalized();
+        collisionData->contactPoint = position + direction.getNormalized() * getRadius();
+        /*collisionData->penetrationDistance = (otherRadius + m_radius) - distance;*/
 
-    return collisionData;
+        return collisionData;
+    }
 }
 
 GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(AABBColliderComponent* other)
