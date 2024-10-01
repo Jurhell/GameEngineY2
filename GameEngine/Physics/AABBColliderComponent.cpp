@@ -57,6 +57,7 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
 
 void GamePhysics::AABBColliderComponent::draw()
 {
+    //Grabbing position for drawing
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
 
     RAYLIB_H::DrawRectangleLines(position.x - m_width / 2, position.y - m_height / 2, getWidth(), getHeight(), GetColor(getColor()));
