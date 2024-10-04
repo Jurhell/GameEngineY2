@@ -5,6 +5,11 @@
 #include "Engine/Entity.h"
 #include <raylib.h>
 
+/// <summary>
+/// Checks collision between two circle collideres.
+/// </summary>
+/// <param name="other">The other circle collider.</param>
+/// <returns>The data from the collision.</returns>
 GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionCircle(CircleColliderComponent* other)
 {
     //Get direction to other collider
@@ -27,6 +32,11 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionCirc
     return collisionData;
 }
 
+/// <summary>
+/// Checks collision between a circle collider and a AABB collider.
+/// </summary>
+/// <param name="other">The AABB Collider the circle has collided with.</param>
+/// <returns>The collidion data of the two colliders.</returns>
 GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB(AABBColliderComponent* other)
 {
     GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();

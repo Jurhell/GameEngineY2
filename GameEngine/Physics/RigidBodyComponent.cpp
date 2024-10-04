@@ -25,6 +25,10 @@ void GamePhysics::RigidBodyComponent::fixedUpdate(float fixedDeltaTime)
 	applyForce(gravity * getMass());
 }
 
+/// <summary>
+/// Collision Resolution. Calculates the force to apply when two entities collide.
+/// </summary>
+/// <param name="collisionData">The data from two colliders that have made contact.</param>
 void GamePhysics::RigidBodyComponent::resolveCollision(GamePhysics::Collision* collisionData)
 {
 	//Creating variables to use in math
@@ -47,7 +51,7 @@ void GamePhysics::RigidBodyComponent::resolveCollision(GamePhysics::Collision* c
 	else if (getMass() != otherRigid->getMass())
 	{
 		//Physics Math, for when both objects have different masses
-
+		//Do Math
 		return;
 	}
 
