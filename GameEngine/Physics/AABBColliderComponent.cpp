@@ -56,7 +56,7 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
         collisionData->normal = direction.getNormalized();
-        collisionData->contactPoint = position + direction.getNormalized() * getRadius();
+        collisionData->contactPoint = position + direction.getNormalized();
         //collisionData->penetrationDistance = (other->getRadius() + getRadius());
 
         return collisionData;
