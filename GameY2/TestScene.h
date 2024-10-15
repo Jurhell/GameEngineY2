@@ -16,5 +16,6 @@ private:
 	GameEngine::Entity* m_floor;
 	GameEngine::Entity* m_ceiling;
 	GameEngine::Entity* m_wall1;
+	GameEngine::Entity* m_wall2;
 	float m_accumulatedTime = 0;
 };

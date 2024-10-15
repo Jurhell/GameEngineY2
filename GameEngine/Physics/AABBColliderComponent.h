@@ -15,11 +15,10 @@ namespace GamePhysics
 
 		float getWidth() { return m_width; }
 		float getHeight() { return m_height; }
-		float getRadius() { return m_radius; };
 
 	private:
 		float m_width;
 		float m_height;
-		float m_radius;
+		float m_circleRadius;
 	};
 }

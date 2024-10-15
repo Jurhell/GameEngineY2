@@ -23,5 +23,6 @@ namespace GameGraphics
 	private:
 		ShapeType m_shapeType;
 		unsigned int m_color = 0xFFFFFFFF;
+		unsigned int m_color2 = 0x8ACFF6;
 	};
 }

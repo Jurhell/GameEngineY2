@@ -44,8 +44,8 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB
     GameMath::Vector2 direction = otherPosition - position;
 
     //AABB Collision Check
-    if (position.x < otherPosition.x + other->getWidth() && position.x + getRadius() > otherPosition.x &&
-        position.y < otherPosition.y + other->getHeight() && position.y + getRadius() > otherPosition.y)
+    if (position.x < otherPosition.x + other->getWidth() && position.x + getRadius() * 2 > otherPosition.x &&
+        position.y < otherPosition.y + other->getHeight() && position.y + getRadius() * 2 > otherPosition.y)
     {
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();

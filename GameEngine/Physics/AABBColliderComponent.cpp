@@ -17,20 +17,20 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;
     float distance = direction.getMagnitude();
-    float otherRadius = other->getRadius();
+    m_circleRadius = other->getRadius();
 
     //Do nothing if there is no collision
-    if (distance > otherRadius + m_radius)
+    if (distance > m_circleRadius)
         return nullptr;
 
-    if (position.x < otherPosition.x + getRadius() && position.x + m_width > otherPosition.x &&
-        position.y < otherPosition.y + other->getRadius() && position.y + m_height > otherPosition.y)
+    if (position.x < otherPosition.x + m_circleRadius && position.x + m_width > otherPosition.x &&
+        position.y < otherPosition.y + m_circleRadius && position.y + m_height > otherPosition.y)
     {
         //Circle collision Data
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
         collisionData->normal = direction.getNormalized();
-        collisionData->contactPoint = position + direction.getNormalized() * getRadius();
+        collisionData->contactPoint = position + direction.getNormalized() * m_circleRadius;
         /*collisionData->penetrationDistance = (otherRadius + m_radius) - distance;*/
 
         return collisionData;
@@ -48,9 +48,9 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;
 
-    //AABB Collision Check
+    //AABB Collision Check, halving other height to fix unresolved external
     if (position.x < otherPosition.x + other->getWidth() && position.x + m_width > otherPosition.x &&
-        position.y < otherPosition.y + other->getHeight() && position.y + m_height > otherPosition.y)
+        position.y < otherPosition.y + other->getHeight() / 2 && position.y + m_height > otherPosition.y)
     {
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();
