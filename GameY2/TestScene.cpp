@@ -27,20 +27,21 @@ void TestScene::onStart()
 	//Set up box
 	m_box = new GameEngine::Entity();
 	m_box->getTransform()->setLocalScale({ 50, 50 });
-	m_box->getTransform()->setLocalPosition({ 545, 400 });
+	m_box->getTransform()->setLocalPosition({ 600, 700 });
 	m_box->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::BOX);
 	m_box->addComponent(new GamePhysics::AABBColliderComponent(60, 60));
 	m_box->addComponent(new GamePhysics::RigidBodyComponent());
-	m_box->getComponent<GamePhysics::RigidBodyComponent>()->setGravity(0);
+	//m_box->getComponent<GamePhysics::RigidBodyComponent>()->setGravity(0);
 	addEntity(m_box);
 
 	//Set up circle 2
 	m_circle2 = new  GameEngine::Entity();
 	m_circle2->getTransform()->setLocalScale({ 30, 30 });
-	m_circle2->getTransform()->setLocalPosition({ 595, 50 });
+	m_circle2->getTransform()->setLocalPosition({ 625, 100 });
 	m_circle2->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle2->addComponent(new GamePhysics::CircleColliderComponent(31));
 	m_circle2->addComponent(new GamePhysics::RigidBodyComponent());
+	m_circle2->getComponent<GamePhysics::RigidBodyComponent>()->setMass(2);
 	addEntity(m_circle2);
 
 #pragma region Room
@@ -75,7 +76,7 @@ void TestScene::onStart()
 	m_wall2->getTransform()->setLocalPosition({ 800, 400 });
 	m_wall2->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::BOX);
 	m_wall2->addComponent(new GamePhysics::AABBColliderComponent(60, 710));
-	addEntity(m_wall2);
+	//addEntity(m_wall2);
 
 #pragma endregion
 }

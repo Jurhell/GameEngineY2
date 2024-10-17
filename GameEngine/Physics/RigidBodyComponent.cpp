@@ -36,28 +36,23 @@ void GamePhysics::RigidBodyComponent::resolveCollision(GamePhysics::Collision* c
 	Vector2 normal = collisionData->normal;
 	float impulse;
 
+	//If other object has no rigid body
 	if (!otherRigid)
 	{
 		//Creating new temp rigid body
 		otherRigid = new RigidBodyComponent();
 
 		//Physics Math, for when one object has infinite mass
-		impulse = 2 * getMass() * normal.dotProduct(getVelocity(), normal);
+		impulse = 2 * getMass() * Vector2::dotProduct(getVelocity(), normal);
 		Vector2 force = normal * impulse;
 
 		applyForceToEntity(otherRigid, force);
 		return;
 	}
-	else if (getMass() != otherRigid->getMass())
-	{
-		//Physics Math, for when both objects have different masses
-		//Do Math
-		return;
-	}
 
 	//Physics Math, for Collision Resolution/Response
-	impulse = 2 * (normal.dotProduct(getVelocity() - otherRigid->getVelocity(), normal))
-		/ normal.dotProduct(normal, normal) * (1 / getMass() + 1 / otherRigid->getMass());
+	impulse = 2 * (Vector2::dotProduct(getVelocity() - otherRigid->getVelocity(), normal))
+		/ Vector2::dotProduct(normal, normal) * (1 / getMass() + 1 / otherRigid->getMass());
 
 	//Storing and applying force
 	Vector2 force = normal * impulse;

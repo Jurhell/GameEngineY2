@@ -19,6 +19,5 @@ namespace GamePhysics
 	private:
 		float m_width;
 		float m_height;
-		float m_circleRadius;
 	};
 }

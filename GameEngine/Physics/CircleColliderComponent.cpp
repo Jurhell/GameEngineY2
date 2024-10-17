@@ -4,6 +4,7 @@
 #include "Math/Vector2.h"
 #include "Engine/Entity.h"
 #include <raylib.h>
+#include <iostream>
 
 /// <summary>
 /// Checks collision between two circle collideres.
@@ -39,21 +40,28 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionCirc
 /// <returns>The collidion data of the two colliders.</returns>
 GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB(AABBColliderComponent* other)
 {
+    //Dimension stuff
+    GameMath::Vector2 dimensions = { other->getWidth(), other->getHeight() };
+    GameMath::Vector2 dimensionMagnitudes = { m_radius, dimensions.getMagnitude() };
+    //Positions
     GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
+    //Direction and distance
     GameMath::Vector2 direction = otherPosition - position;
+    float distance = direction.getMagnitude();
 
     //AABB Collision Check
-    if (position.x < otherPosition.x + other->getWidth() && position.x + getRadius() * 2 > otherPosition.x &&
-        position.y < otherPosition.y + other->getHeight() && position.y + getRadius() * 2 > otherPosition.y)
+    if (position.x < otherPosition.x + other->getWidth() && position.x + m_radius * 2 > otherPosition.x &&
+        position.y < otherPosition.y + other->getHeight() && position.y + m_radius * 2 > otherPosition.y)
     {
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
-        collisionData->normal = direction.getNormalized();
-        collisionData->contactPoint = position + direction.getNormalized() * getRadius();
-        //collisionData->penetrationDistance = (other->getRadius() + getRadius());
-
+        //Needs work
+        collisionData->normal = dimensionMagnitudes.getNormalized();
+        collisionData->contactPoint = position + direction.getNormalized() * dimensions.getMagnitude();
+        collisionData->penetrationDistance = (dimensions.getMagnitude() + m_radius) - distance;
+        
         return collisionData;
     }
     else
