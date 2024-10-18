@@ -5,6 +5,7 @@
 #include "Engine/Entity.h"
 #include <raylib.h>
 #include <iostream>
+#include <algorithm>
 
 /// <summary>
 /// Checks the collision between an AABB collider and a circle collider
@@ -16,7 +17,7 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle
     //Get direction to other collider
     float circleRadius = other->getRadius();
     GameMath::Vector2 dimensions = { m_width, m_height };
-    GameMath::Vector2 dimensionMagnitudes = { circleRadius, dimensions.getMagnitude()};
+    GameMath::Vector2 collisionNormal = { circleRadius, dimensions.getMagnitude()};
     GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 direction = otherPosition - position;
@@ -26,14 +27,23 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle
     if (distance > circleRadius)
         return nullptr;
 
+    //Calculations for the normal
+    if (collisionNormal.x > collisionNormal.y && collisionNormal.x > 0)
+        collisionNormal = { 1, 0 };
+    else if (collisionNormal.y > collisionNormal.x && collisionNormal.y > 0)
+        collisionNormal = { 0, 1 };
+    else if (collisionNormal.x < collisionNormal.y && collisionNormal.x < 0)
+        collisionNormal = { -1, 0 };
+    else if (collisionNormal.y < collisionNormal.x && collisionNormal.y < 0)
+        collisionNormal = { 0, -1 };
+
     if (position.x < otherPosition.x + circleRadius && position.x + m_width > otherPosition.x &&
         position.y < otherPosition.y + circleRadius && position.y + m_height > otherPosition.y)
     {
         //Circle collision Data
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
-        //Needs work
-        collisionData->normal = dimensionMagnitudes.getNormalized();
+        collisionData->normal = collisionNormal.getNormalized();
         collisionData->contactPoint = position + direction.getNormalized() * circleRadius;
         collisionData->penetrationDistance = (circleRadius + position.getMagnitude()) - distance;
 
@@ -51,13 +61,24 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
     //Dimensions
     GameMath::Vector2 dimensions = { m_width, m_height };
     GameMath::Vector2 otherDimensions = { other->getWidth(), other->getHeight() };
-    GameMath::Vector2 dimensionMagnitudes = { dimensions.getMagnitude(), otherDimensions.getMagnitude() };
+    GameMath::Vector2 collisionNormal = { dimensions.getMagnitude(), otherDimensions.getMagnitude() };
     //Positions
     GameMath::Vector2 otherPosition = other->getOwner()->getTransform()->getGlobalPosition();
     GameMath::Vector2 position = getOwner()->getTransform()->getGlobalPosition();
     //Direction and distance
     GameMath::Vector2 direction = otherPosition - position; 
     float distance = direction.getMagnitude();
+
+    //Calculations for the normal
+    if (collisionNormal.x > collisionNormal.y && collisionNormal.x > 0)
+        collisionNormal = { 1, 0 };
+    else if (collisionNormal.y > collisionNormal.x && collisionNormal.y > 0)
+        collisionNormal = { 0, 1 };
+    else if (collisionNormal.x < collisionNormal.y && collisionNormal.x < 0)
+        collisionNormal = { -1, 0 };
+    else if (collisionNormal.y < collisionNormal.x && collisionNormal.y < 0)
+        collisionNormal = { 0, -1 };    
+
 
     //AABB Collision Check, halving other height to temp fix exception thrown error
     if (position.x < otherPosition.x + other->getWidth() && position.x + m_width > otherPosition.x &&
@@ -66,8 +87,7 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
-        //Needs work
-        collisionData->normal = dimensionMagnitudes.getNormalized();
+        collisionData->normal = collisionNormal.getNormalized();
         collisionData->contactPoint = position + direction.getNormalized() * dimensions.getMagnitude();
         collisionData->penetrationDistance = (dimensions.getMagnitude() + otherDimensions.getMagnitude()) - distance;
         
