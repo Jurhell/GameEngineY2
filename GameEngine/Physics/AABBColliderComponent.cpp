@@ -43,7 +43,7 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle
         //Circle collision Data
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
-        collisionData->normal = collisionNormal.getNormalized();
+        collisionData->normal = collisionNormal;
         collisionData->contactPoint = position + direction.getNormalized() * circleRadius;
         collisionData->penetrationDistance = (circleRadius + position.getMagnitude()) - distance;
 
@@ -79,15 +79,14 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
     else if (collisionNormal.y < collisionNormal.x && collisionNormal.y < 0)
         collisionNormal = { 0, -1 };    
 
-
     //AABB Collision Check, halving other height to temp fix exception thrown error
     if (position.x < otherPosition.x + other->getWidth() && position.x + m_width > otherPosition.x &&
-        position.y < otherPosition.y + other->getHeight() / 2 && position.y + m_height > otherPosition.y)
+        position.y < otherPosition.y + other->getHeight() && position.y + m_height > otherPosition.y)
     {
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
-        collisionData->normal = collisionNormal.getNormalized();
+        collisionData->normal = collisionNormal;
         collisionData->contactPoint = position + direction.getNormalized() * dimensions.getMagnitude();
         collisionData->penetrationDistance = (dimensions.getMagnitude() + otherDimensions.getMagnitude()) - distance;
         

@@ -12,6 +12,7 @@ public:
 private:
 	GameEngine::Entity* m_circle1;
 	GameEngine::Entity* m_circle2;
+	GameEngine::Entity* m_circle3;
 	GameEngine::Entity* m_box;
 	GameEngine::Entity* m_floor;
 	GameEngine::Entity* m_ceiling;

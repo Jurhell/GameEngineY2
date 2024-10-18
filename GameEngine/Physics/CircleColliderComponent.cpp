@@ -60,6 +60,9 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB
     else if (collisionNormal.y < collisionNormal.x && collisionNormal.y < 0)
         collisionNormal = { 0, -1 };
 
+    float xSum = m_radius + otherPosition.y;
+    float width = other->getWidth();
+
     //AABB Collision Check
     if (position.x < otherPosition.x + other->getWidth() && position.x + m_radius * 2 > otherPosition.x &&
         position.y < otherPosition.y + other->getHeight() && position.y + m_radius * 2 > otherPosition.y)
@@ -67,7 +70,7 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();
         collisionData->collider = other;
-        collisionData->normal = collisionNormal.getNormalized();
+        collisionData->normal = collisionNormal;
         collisionData->contactPoint = position + direction.getNormalized() * dimensions.getMagnitude();
         collisionData->penetrationDistance = (dimensions.getMagnitude() + m_radius) - distance;
         
