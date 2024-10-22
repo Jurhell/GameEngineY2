@@ -65,7 +65,9 @@ GamePhysics::Collision* GamePhysics::CircleColliderComponent::checkCollisionAABB
 
     //AABB Collision Check
     if (position.x < otherPosition.x + other->getWidth() && position.x + m_radius * 2 > otherPosition.x &&
-        position.y < otherPosition.y + other->getHeight() && position.y + m_radius * 2 > otherPosition.y)
+        position.y < otherPosition.y + other->getHeight() && position.y + m_radius * 2 > otherPosition.y ||
+        position.x < otherPosition.x + m_radius && position.x + other->getWidth() * 2 > otherPosition.x &&
+        position.y < otherPosition.y + m_radius && position.y + other->getHeight() > otherPosition.y)
     {
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();

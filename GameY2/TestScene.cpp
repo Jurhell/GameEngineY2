@@ -17,7 +17,7 @@ void TestScene::onStart()
 	//Set up circle
 	m_circle1 = new GameEngine::Entity();
 	m_circle1->getTransform()->setLocalScale({ 30, 30 });
-	m_circle1->getTransform()->setLocalPosition({ 400, 165 });
+	m_circle1->getTransform()->setLocalPosition({ 545, 275 });
 	m_circle1->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle1->addComponent(new GamePhysics::CircleColliderComponent(31));
 	m_circle1->addComponent(new GamePhysics::RigidBodyComponent());
@@ -27,7 +27,7 @@ void TestScene::onStart()
 	//Set up box
 	m_box = new GameEngine::Entity();
 	m_box->getTransform()->setLocalScale({ 50, 50 });
-	m_box->getTransform()->setLocalPosition({ 590, 700 });
+	m_box->getTransform()->setLocalPosition({ 400, 300 });
 	m_box->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::BOX);
 	m_box->addComponent(new GamePhysics::AABBColliderComponent(52, 52));
 	m_box->addComponent(new GamePhysics::RigidBodyComponent());
@@ -37,20 +37,21 @@ void TestScene::onStart()
 	//Set up circle 2
 	m_circle2 = new  GameEngine::Entity();
 	m_circle2->getTransform()->setLocalScale({ 30, 30 });
-	m_circle2->getTransform()->setLocalPosition({ 425, 225 });
+	m_circle2->getTransform()->setLocalPosition({ 585, 325 });
 	m_circle2->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle2->addComponent(new GamePhysics::CircleColliderComponent(31));
 	m_circle2->addComponent(new GamePhysics::RigidBodyComponent());
 	m_circle2->getComponent<GamePhysics::RigidBodyComponent>()->setMass(20);
 	addEntity(m_circle2);
 
+	//Another circle
 	m_circle3 = new  GameEngine::Entity();
 	m_circle3->getTransform()->setLocalScale({ 30, 30 });
-	m_circle3->getTransform()->setLocalPosition({ 665, 700 });
+	m_circle3->getTransform()->setLocalPosition({ 390, 275 });
 	m_circle3->addComponent<GameGraphics::ShapeComponent>()->setShapeType(GameGraphics::CIRCLE);
 	m_circle3->addComponent(new GamePhysics::CircleColliderComponent(31));
 	m_circle3->addComponent(new GamePhysics::RigidBodyComponent());
-	m_circle3->getComponent<GamePhysics::RigidBodyComponent>()->setMass(20);
+	m_circle3->getComponent<GamePhysics::RigidBodyComponent>()->setGravity(0);
 	addEntity(m_circle3);
 
 #pragma region Room

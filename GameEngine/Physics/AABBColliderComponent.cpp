@@ -38,7 +38,9 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionCircle
         collisionNormal = { 0, -1 };
 
     if (position.x < otherPosition.x + circleRadius && position.x + m_width > otherPosition.x &&
-        position.y < otherPosition.y + circleRadius && position.y + m_height > otherPosition.y)
+        position.y < otherPosition.y + circleRadius && position.y + m_height > otherPosition.y ||
+        position.x < otherPosition.x + m_width && position.x + circleRadius > otherPosition.x &&
+        position.y < otherPosition.y + m_height && position.y + circleRadius > otherPosition.y)
     {
         //Circle collision Data
         GamePhysics::Collision* collisionData = new Collision();
@@ -77,11 +79,19 @@ GamePhysics::Collision* GamePhysics::AABBColliderComponent::checkCollisionAABB(A
     else if (collisionNormal.x < collisionNormal.y && collisionNormal.x < 0)
         collisionNormal = { -1, 0 };
     else if (collisionNormal.y < collisionNormal.x && collisionNormal.y < 0)
-        collisionNormal = { 0, -1 };    
+        collisionNormal = { 0, -1 };
 
-    //AABB Collision Check, halving other height to temp fix exception thrown error
+    float xDiff = position.x - otherPosition.x;
+    float yDiff = position.y - otherPosition.y;
+
+    //if (xDiff + getWidth() > other->getWidth() && yDiff + getHeight() > other->getHeight() ||
+    //    xDiff + other->getWidth() > getWidth() && yDiff + other->getHeight() > getHeight())
+
+    //AABB Collision Check
     if (position.x < otherPosition.x + other->getWidth() && position.x + m_width > otherPosition.x &&
-        position.y < otherPosition.y + other->getHeight() && position.y + m_height > otherPosition.y)
+        position.y < otherPosition.y + other->getHeight() && position.y + m_height > otherPosition.y ||
+        position.x < otherPosition.x + m_width && position.x + other->getWidth() > otherPosition.x &&
+        position.y < otherPosition.y + m_height && position.y + other->getHeight() > otherPosition.y)
     {
         //AABB Collision Data
         GamePhysics::Collision* collisionData = new Collision();
