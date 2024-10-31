@@ -25,6 +25,7 @@
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\TransformComponent.cpp" />
     <ClCompile Include="Graphics\ShapeComponent.cpp" />
+    <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Math\Matrix3.cpp" />
     <ClCompile Include="Math\Matrix4.cpp" />
@@ -43,7 +44,9 @@
     <ClInclude Include="Engine\List.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\TransformComponent.h" />
+    <ClInclude Include="Graphics\Renderer.h" />
     <ClInclude Include="Graphics\ShapeComponent.h" />
+    <ClInclude Include="Graphics\VertexBuffer.h" />
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Math\Matrix3.h" />
     <ClInclude Include="Math\Matrix4.h" />
@@ -54,6 +57,9 @@
     <ClInclude Include="Physics\CircleColliderComponent.h" />
     <ClInclude Include="Physics\ColliderComponent.h" />
     <ClInclude Include="Physics\RigidBodyComponent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\Basic.shader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
