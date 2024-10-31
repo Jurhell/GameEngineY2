@@ -24,7 +24,10 @@
     <ClCompile Include="Engine\Entity.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\TransformComponent.cpp" />
+    <ClCompile Include="Graphics\IndexBuffer.cpp" />
+    <ClCompile Include="Graphics\Renderer.cpp" />
     <ClCompile Include="Graphics\ShapeComponent.cpp" />
+    <ClCompile Include="Graphics\VertexArray.cpp" />
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Math\Matrix3.cpp" />
@@ -44,8 +47,10 @@
     <ClInclude Include="Engine\List.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\TransformComponent.h" />
+    <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Graphics\Renderer.h" />
     <ClInclude Include="Graphics\ShapeComponent.h" />
+    <ClInclude Include="Graphics\VertexArray.h" />
     <ClInclude Include="Graphics\VertexBuffer.h" />
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Math\Matrix3.h" />
@@ -117,8 +122,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\GLEW\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,8 +137,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\GLEW\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,9 +152,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)GameEngine;$(SolutionDir)vendor\Raylib5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\GLEW\include;$(SolutionDir)GameEngine;$(SolutionDir)vendor\Raylib5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,8 +175,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\GLEW\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
